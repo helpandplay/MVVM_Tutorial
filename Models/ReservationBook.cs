@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace MVVM_Tutorial.Models
 {
+    // 비즈니스 로직이 작성되는 곳
     public class ReservationBook
     {
         private readonly List<Reservation> _reservations;
@@ -12,7 +13,7 @@ namespace MVVM_Tutorial.Models
             _reservations = new List<Reservation>();
         }
 
-        public IEnumerable<Reservation> GetAllReservations(string username)
+        public IEnumerable<Reservation> GetAllReservations()
         {
             return _reservations;
         }

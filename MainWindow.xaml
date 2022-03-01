@@ -3,10 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVM_Tutorial" xmlns:views="clr-namespace:MVVM_Tutorial.Views"
+        xmlns:viewModels="clr-namespace:MVVM_Tutorial.ViewModels" 
+        xmlns:views="clr-namespace:MVVM_Tutorial.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Margin="10">
-        <views:ReservationListingView DataContext="{Binding CurrentViewModel}"/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewModels:MakeReservationViewModel}">
+                <views:MakeReservationView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ReservationListingViewModel}">
+                <views:ReservationListingView/>
+            </DataTemplate>
+        </Grid.Resources>
+        <!-- CurrentViewModel의 타입에 따라 리소스에 정의된 뷰모델과 매핑되어 해당하는 뷰를 보여준다.-->
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

@@ -1,12 +1,15 @@
-﻿using System;
+﻿using MVVM_Tutorial.Commands;
+using MVVM_Tutorial.Models;
+using MVVM_Tutorial.Services;
+using System;
 using System.Windows.Input;
 
 namespace MVVM_Tutorial.ViewModels
 {
     public class MakeReservationViewModel : ViewModelBase
     {
-        private string _username;
-
+        #region Property
+        private string _username = string.Empty;
         public string UserName
         {
             get { return _username; }
@@ -45,40 +48,46 @@ namespace MVVM_Tutorial.ViewModels
             }
         }
 
-        private DateTime _startTime;
-        public DateTime StartTime
+        private DateTime _startDate = new DateTime(DateTime.Now.Ticks);
+        public DateTime StartDate
         {
             get
             {
-                return _startTime;
+                return _startDate;
             }
             set
             {
-                _startTime = value;
-                OnPropertyChanged(nameof(StartTime));
+                _startDate = value;
+                OnPropertyChanged(nameof(StartDate));
             }
         }
 
-        private DateTime _endTime;
-        public DateTime EndTime
+        private DateTime _endDate = new DateTime(DateTime.Now.Ticks).Add(new TimeSpan(1, 0, 0, 0));
+        public DateTime EndDate
         {
             get
             {
-                return _endTime;
+                return _endDate;
             }
             set
             {
-                _endTime = value;
-                OnPropertyChanged(nameof(EndTime));
+                _endDate = value;
+                OnPropertyChanged(nameof(EndDate));
             }
         }
+        #endregion
 
         public ICommand SubmitCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
 
-        public MakeReservationViewModel()
+        public MakeReservationViewModel(Hotel hotel, NavigationService reservationViewNavigationService)
         {
+            // Service객체들을 Command를 생성할 때, 할당해준다.
+            // Command들은 자신이 호출될 때, 할당되었던 Service에 대해 로직을 수행한다.
 
+            // SubmitCommand는 생성될 때, 
+            SubmitCommand = new MakeReservationCommand(this, hotel, reservationViewNavigationService);
+            CancelCommand = new NavigateCommand(reservationViewNavigationService);
         }
     }
 }

@@ -20,9 +20,9 @@ namespace MVVM_Tutorial.Models
         /// </summary>
         /// <param name="username">유저의 이름</param>
         /// <returns>유저가 예약한 예약 목록</returns>
-        public IEnumerable<Reservation> GetAllReservations(string username)
+        public IEnumerable<Reservation> GetAllReservations()
         {
-            return _reservationBook.GetAllReservations(username);
+            return _reservationBook.GetAllReservations();
         }
         /// <summary>
         /// 예약을 합니다.
